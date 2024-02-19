@@ -8,16 +8,13 @@ import { EditUserDto } from "./dtos/edit-user.dto";
 export class UsersService {
 
     constructor(
-    ){}
+    ) { }
 
-    public async createUser(userData:CreateUserDto)
-    {
+    public async createUser(userData: CreateUserDto) {
         try {
-            let user:Users = Object.assign(new Users(), userData);
+            let user: Users = Object.assign(new Users(), userData);
 
-            await getConnection().transaction(async (m)=>{
-                await m.save(Users, user);
-            });
+            await Users.save(user);
 
             return user.id;
 
@@ -25,14 +22,12 @@ export class UsersService {
             return new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-    public async editUser(user:Users, userData:EditUserDto)
-    {
+    public async editUser(user: Users, userData: EditUserDto) {
         try {
-            await getConnection().transaction(async (m)=>{
-                await m.update(Users, {
-                    id:user.id
-                }, {...userData});
-            });
+
+            await Users.update({
+                id: user.id
+            }, { ...userData });
 
             return true;
 
@@ -40,5 +35,5 @@ export class UsersService {
             return new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-    
+
 }

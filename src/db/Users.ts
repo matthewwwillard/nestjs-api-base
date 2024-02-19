@@ -11,17 +11,8 @@ export class Users extends BaseEntity {
     @Column()
     displayName:string;
 
-    @Column({default:null, nullable:true})
-    countryCode:number;
-
     @Column()
     email:string;
-
-    @Column({default:null, nullable:true})
-    phoneNumber:string;
-
-    @Column({default:null, nullable:true})
-    authId:string;
 
     @Column()
     password:string;
